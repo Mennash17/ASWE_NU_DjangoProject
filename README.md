@@ -4,7 +4,7 @@ ASWE_NU_2025SPR_Project1
 Simply Todo
 Project Overview
 
-Simply Todo is a simple task management application built with Django. It allows users to create, update, and delete tasks. The application is styled using plain CSS for a clean and professional look.
+Simply Todo is a simple task management application built with Django. It allows users to create, update, and delete tasks. The application is styled using plain CSS.
 
 ## Features
 - **Create Tasks**: Users can add new tasks with a title, description, and completion status.
