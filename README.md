@@ -17,7 +17,7 @@ Simply Todo is a simple task management application built with Django. It allows
 - **Task List**: Displays all tasks with their details.
 
 
-###Phase 2:
+##Phase 2:
 
 Will include all or at least some of these adds to enhance its functionality:
 
