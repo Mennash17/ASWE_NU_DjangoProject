@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Task List</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'tasks/styles.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Task List</h1>
+        <form method="post" class="task-form">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn">Add Task</button>
+        </form>
+        <ul class="task-list">
+            {% for task in tasks %}
+                <li class="task-item">
+                    <span>{{ task.title }} - {{ task.description }} - {% if task.completed %}Completed{% else %}Not Completed{% endif %}</span>
+                    <div class="task-actions">
+                        <a href="{% url 'task_update' task.pk %}" class="btn btn-edit">Edit</a>
+                        <a href="{% url 'task_delete' task.pk %}" class="btn btn-delete">Delete</a>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
