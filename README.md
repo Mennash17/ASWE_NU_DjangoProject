@@ -63,7 +63,7 @@ Phase 2 Will include all or at least some of these adds to enhance its functiona
 2. Create a Virtual Environment:
    ```bash
    python -m venv env
-   source env/bin/activate  # On Windows: env\Scripts\activate
+   source env/bin/activate 
    ```
 
 3. Install Dependencies:
