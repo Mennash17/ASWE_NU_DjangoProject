@@ -1,16 +1,50 @@
 # ASWE_NU_DjangoProject
 ASWE_NU_2025SPR_Project1
 
+
+Repo: https://github.com/Mennash17/ASWE_NU_DjangoProject
+
 Simply Todo
 Project Overview
 
 Simply Todo is a simple task management application built with Django. It allows users to create, update, and delete tasks. The application is styled using plain CSS.
+
+Phase 1: 
 
 ## Features
 - **Create Tasks**: Users can add new tasks with a title, description, and completion status.
 - **Update Tasks**: Users can edit existing tasks.
 - **Delete Tasks**: Users can remove tasks from the list.
 - **Task List**: Displays all tasks with their details.
+
+
+Phase 2 Will include all or at least some of these adds to enhance its functionality:
+
+1. **User Authentication**:
+   - Allow users to register, log in, and manage their own tasks.
+   - Implement password reset functionality.
+
+2. **Task Categories**:
+   - Enable users to categorize tasks (e.g., Work, Personal, Urgent).
+   - Add filtering options to view tasks by category.
+
+3. **Due Dates and Reminders**:
+   - Allow users to set due dates for tasks.
+   - Implement reminder notifications for upcoming deadlines.
+
+4. **Priority Levels**:
+   - Add priority levels (e.g., High, Medium, Low) to tasks.
+   - Allow sorting tasks by priority.
+
+5. **Search Functionality**:
+   - Implement a search bar to quickly find tasks by title or description.
+
+6. **Task Comments**:
+   - Enable users to add comments or notes to tasks for additional context.
+
+7. **Task Completion Progress**:
+   - Display progress indicators (e.g., percentage complete) for tasks with multiple steps.
+
 
 ## Installation
 ### Prerequisites
