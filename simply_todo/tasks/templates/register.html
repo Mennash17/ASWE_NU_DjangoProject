@@ -1,20 +1,23 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Register - Simply Todo</title>
-  <link rel="stylesheet" href="{% static 'tasks/styles.css' %}">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-  <style>
-    body {
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register - Simply Todo</title>
+    <link rel="stylesheet" href="{% static 'tasks/styles.css' %}" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
       background: #f0f2f5;
       font-family: 'Poppins', sans-serif;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
-      height: 100vh;
+      /* height: 100vh; */
       margin: 0;
     }
 
@@ -23,7 +26,7 @@
       padding: 40px 30px;
       border-radius: 12px;
       box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-      width: 100%;
+      width: 95%;
       max-width: 400px;
       text-align: center;
     }
@@ -39,7 +42,7 @@
     }
 
     input {
-      width: 100%;
+      width: 95%;
       padding: 12px;
       margin-bottom: 15px;
       border: 1px solid #ccc;
@@ -48,7 +51,7 @@
     }
 
     .btn {
-      width: 100%;
+      width: 95%;
       padding: 12px;
       background-color: #0066cc;
       color: white;
@@ -77,17 +80,74 @@
     .auth-box a:hover {
       text-decoration: underline;
     }
-  </style>
-</head>
-<body>
-  <h2>Create Your Account 🚀</h2>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="btn">Register</button>
-  </form>
-  <p>Already have an account? <a href="{% url 'login' %}">Login here</a></p>
 
-  </div>
-</body>
+      @media (max-width: 768px) {
+        .main-content {
+          flex-direction: column;
+          padding: 15px;
+        }
+
+        .task-form-box,
+        .task-list {
+          width: 100%;
+        }
+
+        .task-card {
+          flex-direction: column;
+          align-items: flex-start;
+          height: auto;
+          padding: 15px;
+        }
+
+        .task-meta {
+          text-align: left;
+          margin-top: 10px;
+        }
+
+        .task-actions {
+          position: static;
+          margin-top: 10px;
+        }
+
+        .task-actions button {
+          margin-left: 0;
+          margin-right: 10px;
+        }
+      }
+      @media (max-width: 500px) {
+        h1 {
+          font-size: 22px;
+        }
+
+        .btn {
+          padding: 8px 12px;
+          font-size: 14px;
+        }
+
+        .task-card h3 {
+          font-size: 16px;
+        }
+
+        .task-card p {
+          font-size: 13px;
+        }
+      }
+      .task-form input,
+      .task-form textarea,
+      .task-form select {
+        width: 100%;
+        box-sizing: border-box;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="auth-box">
+      <h2>Create Your Account 🚀</h2>
+      <form method="post">
+        {% csrf_token %} {{ form.as_p }}
+        <button type="submit" class="btn">Register</button>
+      </form>
+      <p>Already have an account? <a href="{% url 'login' %}">Login here</a></p>
+    </div>
+  </body>
 </html>

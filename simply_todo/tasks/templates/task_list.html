@@ -3,6 +3,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simply Todo</title>
     <link rel="stylesheet" href="{% static 'tasks/styles.css' %}" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
@@ -122,7 +123,7 @@
         border-radius: 10px;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
         position: relative;
-        max-height: 30vh !important;
+        max-height: fit-content
       }
 
       .task-card h3 {
@@ -147,6 +148,8 @@
         position: absolute;
         top: 10px;
         right: 10px;
+        display: flex;
+        justify-content: end;
       }
 
       .task-actions button {
@@ -314,6 +317,71 @@
     a{
         text-decoration: none;
     }
+
+    @media (max-width: 768px) {
+  .main-content {
+    flex-direction: column;
+    padding: 15px;
+  }
+
+  .task-form-box {
+    width: 87%;
+  }
+  .filter-cont {
+    display: flex
+;
+    flex-direction: column;
+    gap: 15px;
+    font-size: 10px;
+}
+
+  .task-card {
+    flex-direction: column;
+    align-items: flex-start;
+    height: auto;
+    padding: 15px;
+  }
+
+  .task-meta {
+    text-align: left;
+    margin-top: 10px;
+  }
+
+  .task-actions {
+    position: static;
+    margin-top: 10px;
+  }
+
+  .task-actions button {
+    margin-left: 0;
+    margin-right: 10px;
+  }
+}
+@media (max-width: 500px) {
+  h1 {
+    font-size: 22px;
+  }
+
+  .btn {
+    padding: 8px 12px;
+    font-size: 14px;
+  }
+
+  .task-card h3 {
+    font-size: 16px;
+  }
+
+  .task-card p {
+    font-size: 13px;
+  }
+}
+.task-form input,
+.task-form textarea,
+.task-form select {
+  width: 100%;
+  box-sizing: border-box;
+}
+
 
     </style>
   </head>

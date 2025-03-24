@@ -3,6 +3,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login - Simply Todo</title>
   <link rel="stylesheet" href="{% static 'tasks/styles.css' %}">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
@@ -76,6 +77,63 @@
     .auth-box a:hover {
       text-decoration: underline;
     }
+    @media (max-width: 768px) {
+  .main-content {
+    flex-direction: column;
+    padding: 15px;
+  }
+
+  .task-form-box, .task-list {
+    width: 100%;
+  }
+
+  .task-card {
+    flex-direction: column;
+    align-items: flex-start;
+    height: auto;
+    padding: 15px;
+  }
+
+  .task-meta {
+    text-align: left;
+    margin-top: 10px;
+  }
+
+  .task-actions {
+    position: static;
+    margin-top: 10px;
+  }
+
+  .task-actions button {
+    margin-left: 0;
+    margin-right: 10px;
+  }
+}
+@media (max-width: 500px) {
+  h1 {
+    font-size: 22px;
+  }
+
+  .btn {
+    padding: 8px 12px;
+    font-size: 14px;
+  }
+
+  .task-card h3 {
+    font-size: 16px;
+  }
+
+  .task-card p {
+    font-size: 13px;
+  }
+}
+.task-form input,
+.task-form textarea,
+.task-form select {
+  width: 100%;
+  box-sizing: border-box;
+}
+
   </style>
 </head>
 <body>
