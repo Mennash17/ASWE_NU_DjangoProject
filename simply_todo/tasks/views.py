@@ -19,9 +19,7 @@ def task_update(request, pk):
         if form.is_valid():
             form.save()
             return redirect('task_list')
-    else:
-        form = TaskForm(instance=task)
-    return render(request, 'task_update.html', {'form': form})
+
 
 def task_delete(request, pk):
     task = get_object_or_404(Task, pk=pk)
