@@ -59,8 +59,8 @@
 
       .task-form label {
         display: block;
-        margin-top: 20px;
-        font-weight: bold;
+        margin-top: 0;
+        /* font-weight: bold; */
       }
 
       .task-form input[type="text"]{
@@ -211,7 +211,7 @@
       }
       #id_completed,
       #editCompleted {
-        width: 5%;
+        width: fit-content;
         display: inline;
       }
       #id_category,
@@ -374,13 +374,25 @@
   .task-card p {
     font-size: 13px;
   }
-}
-.task-form input,
-.task-form textarea,
-.task-form select {
-  width: 100%;
-  box-sizing: border-box;
-}
+    }
+    .task-form input,
+    .task-form textarea,
+    .task-form select {
+    width: 100%;
+    box-sizing: border-box;
+    }
+    .checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 500;
+    color: #333;
+    }
+    .task-form input[type="checkbox"] {
+    transform: scale(1.2);
+    accent-color: #0066cc;
+    cursor: pointer;
+    }
 
 
     </style>
@@ -437,7 +449,9 @@
           </div>
 
           <div class="form-group checkbox-group">
-            <label> {{ form.completed }} Completed </label>
+            <input type="checkbox" id="{{ form.completed.id_for_label }}" name="{{ form.completed.name }}"
+                   {% if form.completed.value %}checked{% endif %}>
+            <label for="{{ form.completed.id_for_label }}">Completed</label>
           </div>
 
           <div style="text-align: center; margin-top: 20px">
