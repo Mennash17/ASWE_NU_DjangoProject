@@ -5,16 +5,24 @@
     <meta charset="UTF-8" />
     <title>Simply Todo</title>
     <link rel="stylesheet" href="{% static 'tasks/styles.css' %}" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
     <style>
       body {
+        font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f5f7fa;
         margin: 0;
-        font-family: "Segoe UI", sans-serif;
-        background-color: #f0f2f5;
-      }
+        padding: 0;
+    }
+    h1, h2, h3 {
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    }
 
       header {
         background-color: #0066cc;
+        display: flex;
+        justify-content: space-between;
         color: white;
         padding: 20px;
         text-align: center;
@@ -54,8 +62,7 @@
         font-weight: bold;
       }
 
-      .task-form input[type="text"],
-      .task-form textarea {
+      .task-form input[type="text"]{
         width: 95%;
         padding: 10px;
         margin-bottom: 15px;
@@ -67,6 +74,21 @@
       .task-form input[type="checkbox"] {
         margin-right: 8px;
       }
+
+    .task-form textarea,
+    .task-form select {
+        width: 95%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 14px;
+    }
+
+    .task-form textarea {
+        height: 40px; 
+        resize: vertical;
+    }
 
       .btn {
         background-color: #0066cc;
@@ -88,7 +110,7 @@
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
         gap: 10px;
-        max-height: 70vh;    
+        max-height: 90vh;    
         overflow-y: auto;      
         padding-right: 10px;   
 
@@ -164,7 +186,7 @@
         padding: 20px;
         width: 110%;
         max-width: 500px;
-        max-height: 80vh;
+        max-height: 90vh;
         overflow-y: auto;
         overflow-x: hidden;
         border-radius: 8px;
@@ -223,11 +245,91 @@
         border-radius: 4px;
         }
 
+        .task-search-form {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        }
+
+        .task-search-form input[type="text"] {
+        flex: 1;
+        padding: 10px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        font-size: 14px;
+        }
+        .task-summary h3 {
+        font-size: 18px;
+        color: #333;
+        margin: 0 0 10px;
+        }
+
+        .sort-form {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 20px;
+        }
+
+        .sort-form select {
+        padding: 6px 10px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        font-size: 14px;
+        }
+        .filter-form select {
+        padding: 6px 10px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        font-size: 14px;
+        }
+        .filter-cont{
+            display: flex;
+            flex-direction: row;
+            gap: 15px;
+        }
+
+    .close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    color: #aaa;
+    cursor: pointer;
+    }
+
+    .close:hover {
+    color: black;
+    }
+
+    .task-card.late {
+    background-color: #ffe6e6;
+    border-left: 5px solid #ff3333;
+    }
+
+    .task-card.upcoming {
+    background-color: #fff7e6;
+    border-left: 5px solid #ffc107;
+    }
+    a{
+        text-decoration: none;
+    }
 
     </style>
   </head>
   <body>
-    <header>Simply Todo</header>
+    <header>Simply To-Do
+        <span>
+            {% if user.is_authenticated %}
+              <span style="margin-right: 15px;">👋 Hi, {{ user.username }}</span>
+              <a href="{% url 'login' %}" class="btn" style="background-color: #cc0000;">Logout</a>
+            {% else %}
+              <a href="{% url 'login' %}" class="btn" style="margin-right: 10px;">Login</a>
+              <a href="{% url 'register' %}" class="btn">Register</a>
+            {% endif %}
+        </span>
+    </header>
+    
 
     <div class="main-content">
       <!-- Form -->
@@ -277,9 +379,66 @@
       </div>
 
       <!-- Tasks -->
+      
       <div class="task-list">
-        {% for task in tasks %}
-        <div class="task-card {% if task.completed %}completed{% endif %}">
+        <form method="get" action="." class="task-search-form" style="margin-bottom: 20px;">
+            <input type="text" name="q" placeholder="Search tasks..." value="{{ query }}" />
+            <button type="submit" class="btn">Search</button>
+          </form>
+          <div class="filter-cont">
+            <form method="get" class="filter-form" style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-bottom: 15px;">
+                <input type="hidden" name="q" value="{{ query }}">
+                <input type="hidden" name="field" value="{{ sort_field }}">
+                <input type="hidden" name="order" value="{{ sort_order }}">
+                
+                <label for="category"><strong>Category:</strong></label>
+                <select name="category" id="category" onchange="this.form.submit()">
+                    <option value="">All</option>
+                    <option value="Work" {% if category_filter == 'Work' %}selected{% endif %}>Work</option>
+                    <option value="Study" {% if category_filter == 'Study' %}selected{% endif %}>Study</option>
+                    <option value="Personal" {% if category_filter == 'Personal' %}selected{% endif %}>Personal</option>
+                </select>
+                
+                <label for="priority"><strong>Priority:</strong></label>
+                <select name="priority" id="priority" onchange="this.form.submit()">
+                    <option value="">All</option>
+                    <option value="High" {% if priority_filter == 'High' %}selected{% endif %}>High</option>
+                    <option value="Medium" {% if priority_filter == 'Medium' %}selected{% endif %}>Medium</option>
+                    <option value="Low" {% if priority_filter == 'Low' %}selected{% endif %}>Low</option>
+                </select>
+                </form>
+            <form method="get" class="sort-form" style="display: flex; gap: 10px; align-items: center; margin-bottom: 20px;">
+  
+                {% if query %}
+                  <input type="hidden" name="q" value="{{ query }}">
+                {% endif %}
+                
+                <label for="field"><strong>Sort by:</strong></label>
+                <select name="field" id="field" onchange="this.form.submit()">
+                  <option value="title" {% if sort_field == 'title' %}selected{% endif %}>Title</option>
+                  <option value="due_date" {% if sort_field == 'due_date' %}selected{% endif %}>Due Date</option>
+                  <option value="priority" {% if sort_field == 'priority' %}selected{% endif %}>Priority</option>
+                  <option value="category" {% if sort_field == 'category' %}selected{% endif %}>Category</option>
+                </select>
+              
+                <label for="order"><strong>Order:</strong></label>
+                <select name="order" id="order" onchange="this.form.submit()">
+                  <option value="asc" {% if sort_order == 'asc' %}selected{% endif %}>⬆️ Ascending</option>
+                  <option value="desc" {% if sort_order == 'desc' %}selected{% endif %}>⬇️ Descending</option>
+                </select>
+              </form>   
+              
+          </div>
+          
+          
+        {% for task in page_obj %}
+
+        <div class="task-card 
+        {% if task.completed %}completed
+        {% elif task.due_date and task.due_date < now %} late
+        {% elif task.due_date and task.due_date <= near_date %} upcoming
+        {% endif %}">
+
           <div class="task-actions">
             <button
             class="btn-edit"
@@ -304,7 +463,11 @@
               🗑️
             </button>
           </div>
-          <h3>{{ task.title }}</h3>
+          <h3>
+            <a href="#" onclick="openDetailModal({{ task.id }})" style="text-decoration: none; color: inherit;">
+              {{ task.title }}
+            </a>
+          </h3>
           <span class="priority-tag {{ task.priority|lower }}"
             >{{ task.priority }}</span
           ><br />
@@ -319,9 +482,39 @@
             {% if task.completed %}✅ Completed{% else %}❌ Not Done{% endif %}
           </span>
         </div>
+
+        
+        {% empty %}
+        <p>No tasks found.</p>
         {% endfor %}
+        <div class="pagination" style="margin-top: 20px;">
+            {% if page_obj.has_previous %}
+              <a href="?q={{ query }}&page={{ page_obj.previous_page_number }}" class="btn">Previous</a>
+            {% endif %}
+          
+            <span style="margin: 0 10px;">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+          
+            {% if page_obj.has_next %}
+              <a href="?q={{ query }}&page={{ page_obj.next_page_number }}" class="btn">Next</a>
+            {% endif %}
+          </div>
+        <div class="task-summary" style="margin-bottom: 15px;">
+            <h3>Total:{{ task_count }} task{{ task_count|pluralize }}</h3>
+        </div>
       </div>
     </div>
+
+    <!-- Task Detail Modal -->
+<div id="detailModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeDetailModal()">&times;</span>
+      <h2>Task Details</h2>
+      <div id="detailContent">
+        <!-- Details will load here -->
+      </div>
+    </div>
+  </div>
+
 
     <!-- Edit Modal -->
     <div id="editModal" class="modal">
@@ -422,7 +615,7 @@
         document.getElementById("editDueDate").value = due_date;
         document.getElementById("editPriority").value = priority;
         document.getElementById("editNotes").value = notes;
-        document.getElementById("editForm").action = `/update/${id}/`;
+        document.getElementById("editForm").action = `/tasks/update/${id}/`;
       }
 
       function closeEditModal() {
@@ -433,7 +626,7 @@
         document.getElementById("deleteModal").style.display = "block";
         document.getElementById("deleteId").value = id;
         document.getElementById("deleteTitle").innerText = title;
-        document.getElementById("deleteForm").action = `/delete/${id}/`;
+        document.getElementById("deleteForm").action = `/tasks/delete/${id}/`;
       }
 
       function closeDeleteModal() {
@@ -446,6 +639,34 @@
         if (event.target == document.getElementById("deleteModal"))
           closeDeleteModal();
       };
+
+    function openDetailModal(taskId) {
+    fetch(`task/${taskId}/json/`)
+      .then(response => response.json())
+      .then(data => {
+        const content = `
+          <p><strong>Title:</strong> ${data.title}</p>
+          <p><strong>Description:</strong> ${data.description}</p>
+          <p><strong>Category:</strong> ${data.category}</p>
+          <p><strong>Due Date:</strong> ${data.due_date}</p>
+          <p><strong>Priority:</strong> ${data.priority}</p>
+          <p><strong>Completed:</strong> ${data.completed ? '✅' : '❌'}</p>
+          <p><strong>Notes:</strong> ${data.notes || '-'}</p>
+        `;
+        document.getElementById('detailContent').innerHTML = content;
+        document.getElementById('detailModal').style.display = 'block';
+      });
+  }
+
+  function closeDetailModal() {
+    document.getElementById('detailModal').style.display = 'none';
+  }
+
+  window.onclick = function(event) {
+    if (event.target == document.getElementById('detailModal')) {
+      closeDetailModal();
+    }
+  }
     </script>
   </body>
 </html>
