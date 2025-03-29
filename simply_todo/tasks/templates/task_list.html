@@ -7,6 +7,7 @@
     <title>Simply Todo</title>
     <link rel="stylesheet" href="{% static 'tasks/styles.css' %}" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.1/xlsx.full.min.js"></script>
 
     <style>
       body {
@@ -463,6 +464,7 @@
       <!-- Tasks -->
       
       <div class="task-list">
+        <button class="btn" onclick="exportTasksToExcel()">⬇️ Export to Excel</button>
         <form method="get" action="." class="task-search-form" style="margin-bottom: 20px;">
             <input type="text" name="q" placeholder="Search tasks..." value="{{ query }}" />
             <button type="submit" class="btn">Search</button>
@@ -749,6 +751,115 @@
       closeDetailModal();
     }
   }
+    
+function downloadExcel() {
+  const token = localStorage.getItem("token"); 
+
+  if (!token) {
+    alert("Please log in first.");
+    return;
+  }
+
+  fetch("/tasks/api/tasks/", {
+    method: "GET",
+    headers: {
+      "Authorization": `Token ${token}` 
+    }
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    return response.blob();
+  })
+  .then(blob => {
+    
+    // const url = window.URL.createObjectURL(blob);
+    // const a = document.createElement("a");
+    // a.href = url;
+    // a.download = "tasks.xlsx";
+    // document.body.appendChild(a);
+    // a.click();
+    // a.remove();
+    // window.URL.revokeObjectURL(url);
+  })
+  .catch(error => {
+    alert("Error exporting tasks: " + error.message);
+    console.error(error);
+  });
+}
+
+
+function exportTasksToExcel() {
+  // Step 1: Dynamically determine the base URL
+  const baseUrl = window.location.origin;  // Automatically detects the current base URL (local or production)
+
+  // Construct the full API URL
+  const apiUrl = `${baseUrl}/tasks/api/tasks/`;
+
+  // Step 2: Fetch the tasks from your API
+  fetch(apiUrl, {
+    method: 'GET',
+    headers: {
+      'Authorization': `Token ${localStorage.getItem('token')}`, // Assuming token is stored in localStorage
+    }
+  })
+  .then(response => response.json()) // Parse the response as JSON
+  .then(data => {
+    // Prepare data for Excel
+    const worksheetData = [
+      ["Title", "Description", "Category", "Due Date", "Priority", "Completed", "Notes"]
+    ];
+
+    data.forEach(task => {
+      worksheetData.push([
+        task.title,
+        task.description,
+        task.category,
+        task.due_date ? new Date(task.due_date).toISOString().slice(0, 10) : '',
+        task.priority,
+        task.completed ? 'Yes' : 'No',
+        task.notes || ''
+      ]);
+    });
+
+    // Create a worksheet
+    const ws = XLSX.utils.aoa_to_sheet(worksheetData);
+
+    // Styling (header row bold and colored)
+    const headerStyle = {
+      font: { bold: true, color: { rgb: "0066cc" } },
+      fill: { fgColor: { rgb: "0066CC" } },
+      alignment: { horizontal: "center", vertical: "center" }
+    };
+
+    const range = XLSX.utils.decode_range(ws['!ref']);
+    for (let col = range.s.c; col <= range.e.c; col++) {
+      const headerCell = XLSX.utils.encode_cell({ r: 0, c: col });
+      ws[headerCell].s = headerStyle;
+    }
+
+    // Auto width adjustment
+    const colWidths = worksheetData[0].map((_, colIndex) => ({
+      wch: Math.max(...worksheetData.map(row => (row[colIndex] ? row[colIndex].toString().length : 0))) + 5
+    }));
+
+    ws['!cols'] = colWidths;
+
+    // Create workbook and append worksheet
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, ws, "My Tasks");
+
+    // Export workbook
+    XLSX.writeFile(workbook, 'tasks.xlsx');
+  })
+  .catch(error => {
+    console.error('Error exporting tasks:', error);
+    alert('Failed to export tasks.');
+  });
+}
+
     </script>
+    
   </body>
 </html>

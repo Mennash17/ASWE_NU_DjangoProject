@@ -6,10 +6,86 @@ from django.http import JsonResponse
 from datetime import timedelta
 from django.utils import timezone
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import login
 from django.shortcuts import render, redirect
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
+
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from .serializers import TaskSerializer
+from rest_framework import generics, permissions
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.decorators import api_view, authentication_classes, permission_classes
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
+import openpyxl
+
+from django.contrib.auth import authenticate, login
+from django.shortcuts import render, redirect
+from django.contrib.auth.forms import AuthenticationForm
+from django.http import JsonResponse
+
+
+@api_view(['GET'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def export_tasks_excel_api(request):
+    user = request.user
+    tasks = Task.objects.filter(user=user)
+
+    workbook = openpyxl.Workbook()
+    sheet = workbook.active
+    sheet.title = 'My Tasks'
+
+    headers = ['Title', 'Description', 'Category', 'Due Date', 'Priority', 'Completed', 'Notes']
+    header_font = Font(bold=True, color="FFFFFF")
+    header_fill = PatternFill(start_color="0066CC", end_color="0066CC", fill_type="solid")
+
+    for col_num, column_title in enumerate(headers, 1):
+        cell = sheet.cell(row=1, column=col_num, value=column_title)
+        cell.font = header_font
+        cell.fill = header_fill
+        cell.alignment = Alignment(horizontal="center")
+
+    for row_num, task in enumerate(tasks, start=2):
+        sheet.cell(row=row_num, column=1, value=task.title)
+        sheet.cell(row=row_num, column=2, value=task.description)
+        sheet.cell(row=row_num, column=3, value=task.category)
+        sheet.cell(row=row_num, column=4, value=task.due_date.strftime('%Y-%m-%d') if task.due_date else '')
+        sheet.cell(row=row_num, column=5, value=task.priority)
+        sheet.cell(row=row_num, column=6, value='Yes' if task.completed else 'No')
+        sheet.cell(row=row_num, column=7, value=task.notes)
+
+    for column in sheet.columns:
+        max_length = max(len(str(cell.value)) if cell.value else 0 for cell in column)
+        sheet.column_dimensions[column[0].column_letter].width = max_length + 2
+
+    response = HttpResponse(
+        content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    )
+    response['Content-Disposition'] = 'attachment; filename=tasks.xlsx'
+    workbook.save(response)
+    return response
+
+
+class TaskListCreateAPIView(generics.ListCreateAPIView):
+    serializer_class = TaskSerializer
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        return Task.objects.filter(user=self.request.user)
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def task_list_api(request):
+    tasks = Task.objects.filter(user=request.user)
+    serializer = TaskSerializer(tasks, many=True)
+    return Response(serializer.data)
 
 def register(request):
     if request.method == 'POST':
