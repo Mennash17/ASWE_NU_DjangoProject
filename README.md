@@ -1,7 +1,7 @@
 # Simply Todo
 
 ## Project Overview
-Simply Todo is a simple yet powerful task management application built with Django. It allows users to create, update, delete, and export tasks. The application is styled using plain CSS and is published online on Render at [https://simply-todo.onrender.com](https://simply-todo.onrender.com).
+Simply Todo is a simple task management application built with Django. It allows users to create, update, delete, and export tasks. The application is styled using plain CSS and is published online on Render at [https://simply-todo.onrender.com](https://simply-todo.onrender.com).
 
 ## Features
 
