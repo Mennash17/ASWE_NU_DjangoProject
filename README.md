@@ -1,75 +1,71 @@
-# ASWE_NU_DjangoProject
-ASWE_NU_2025SPR_Project1
+# Simply Todo
 
-
-Repo: https://github.com/Mennash17/ASWE_NU_DjangoProject
-
-Simply Todo
-Project Overview
-
-Simply Todo is a simple task management application built with Django. It allows users to create, update, and delete tasks. The application is styled using plain CSS.
+## Project Overview
+Simply Todo is a simple yet powerful task management application built with Django. It allows users to create, update, delete, and export tasks. The application is styled using plain CSS and is published online on Render at [https://simply-todo.onrender.com](https://simply-todo.onrender.com).
 
 ## Features
-### Phase 1: 
+
+### Phase 1:
 - **Create Tasks**: Users can add new tasks with a title, description, and completion status.
 - **Update Tasks**: Users can edit existing tasks.
 - **Delete Tasks**: Users can remove tasks from the list.
 - **Task List**: Displays all tasks with their details.
 
-
-##Phase 2:
-
-Will include all or at least some of these adds to enhance its functionality:
+### Phase 2:
+Implemented advanced features enhancing user experience and functionality:
 
 1. **User Authentication**:
-   - Allow users to register, log in, and manage their own tasks.
-   - Implement password reset functionality.
+   - Users can register, log in, and manage their own tasks securely.
+   - Password reset functionality.
 
 2. **Task Categories**:
-   - Enable users to categorize tasks (e.g., Work, Personal, Urgent).
-   - Add filtering options to view tasks by category.
+   - Tasks can be categorized (e.g., Work, Personal, Urgent).
+   - Filtering tasks by category.
 
 3. **Due Dates and Reminders**:
-   - Allow users to set due dates for tasks.
-   - Implement reminder notifications for upcoming deadlines.
+   - Users can set due dates for tasks.
+   - Reminder notifications for upcoming deadlines.
 
 4. **Priority Levels**:
-   - Add priority levels (e.g., High, Medium, Low) to tasks.
-   - Allow sorting tasks by priority.
+   - Tasks can be assigned priority levels (High, Medium, Low).
+   - Sorting tasks based on priority.
 
 5. **Search Functionality**:
-   - Implement a search bar to quickly find tasks by title or description.
+   - Quickly find tasks by title or description.
 
 6. **Task Comments**:
-   - Enable users to add comments or notes to tasks for additional context.
+   - Users can add notes or comments for additional context.
 
 7. **Task Completion Progress**:
-   - Display progress indicators (e.g., percentage complete) for tasks with multiple steps.
+   - Visual indicators for task progress (percentage complete).
 
+8. **Export Tasks (New)**:
+   - Export tasks functionality using a REST API endpoint.
+   - JavaScript frontend integration for seamless exporting to Excel or PDF formats.
 
 ## Installation
-### Prerequisites
 
+### Prerequisites
 - Python 3.x
 - Django 5.x
 
 ### Steps
 
-1. Clone the Repository:
+1. **Clone the Repository**:
    ```bash
-   git clone <repository-url>
-   cd simply_todo
+   git clone https://github.com/Mennash17/ASWE_NU_DjangoProject
+   cd ASWE_NU_DjangoProject
    ```
 
-2. Create a Virtual Environment:
+2. **Create a Virtual Environment**:
    ```bash
    python -m venv env
-   source env/bin/activate 
+   source env/bin/activate
    ```
 
-3. Install Dependencies:
+3. **Install Dependencies**:
    ```bash
-   pip install django
+   pip install django djangorestframework pandas openpyxl
    ```
 
 4. **Run Migrations**:
@@ -84,30 +80,30 @@ Will include all or at least some of these adds to enhance its functionality:
    ```
 
 6. **Access the Application**:
-   - Open your web browser and navigate to `http://127.0.0.1:8000/`.
+   - Navigate to [http://127.0.0.1:8000/](http://127.0.0.1:8000/) in your web browser.
 
 ## Usage
 
 ### Creating a Task
-
 1. Fill out the form with the task title, description, and completion status.
-2. Click the "Add Task" button.
+2. Click "Add Task."
 
 ### Updating a Task
-
-1. Click the "Edit" button next to the task you want to update.
-2. Modify the task details in the form.
-3. Click the "Update Task" button.
+1. Click "Edit" next to the task you want to update.
+2. Modify details and click "Update Task."
 
 ### Deleting a Task
+1. Click "Delete" next to the task you want to remove.
+2. Confirm deletion.
 
-1. Click the "Delete" button next to the task you want to remove.
-2. Confirm the deletion.
+### Exporting Tasks (New)
+1. Click "Export Tasks" on the frontend.
+2. Select desired export format (Excel or PDF).
+3. Confirm export to download your tasks.
 
 ## Project Structure
-
 ```
-simply_todo/
+ASWE_NU_DjangoProject/
 ├── simply_todo/
 │   ├── __init__.py
 │   ├── settings.py
@@ -120,6 +116,7 @@ simply_todo/
 │   ├── models.py
 │   ├── views.py
 │   ├── urls.py
+│   ├── serializers.py (new)
 │   ├── templates/
 │   │   └── tasks/
 │   │       ├── task_list.html
@@ -127,7 +124,17 @@ simply_todo/
 │   │       ├── task_delete.html
 │   ├── static/
 │   │   └── tasks/
-│   │       └── styles.css
+│   │       ├── styles.css
+│   │       ├── export.js (new)
 ├── staticfiles/
 ├── manage.py
 ```
+
+## Deployment
+The application is deployed and publicly accessible on Render:
+- [Simply Todo](https://simply-todo.onrender.com)
+
+---
+
+*ASWE_NU_2025SPR_Project1*
+
