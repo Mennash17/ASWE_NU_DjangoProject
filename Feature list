@@ -1,0 +1,46 @@
+Simply Todo
+Project Overview
+Simply Todo is a simple task management application built with Django. It allows users to create, update, delete, and export tasks. The application is styled using plain CSS and is published online on Render at https://simply-todo.onrender.com.
+
+Features
+Phase 1:
+Create Tasks: Users can add new tasks with a title, description, and completion status.
+Update Tasks: Users can edit existing tasks.
+Delete Tasks: Users can remove tasks from the list.
+Task List: Displays all tasks with their details.
+Phase 2:
+Implemented advanced features enhancing user experience and functionality:
+
+User Authentication:
+
+Users can register, log in, and manage their own tasks securely.
+Password reset functionality.
+Task Categories:
+
+Tasks can be categorized (e.g., Work, Personal, Urgent).
+Filtering tasks by category.
+Due Dates and Reminders:
+
+Users can set due dates for tasks.
+Reminder notifications for upcoming deadlines.
+Priority Levels:
+
+Tasks can be assigned priority levels (High, Medium, Low).
+Sorting tasks based on priority.
+Search Functionality:
+
+Quickly find tasks by title or description.
+Task Comments:
+
+Users can add notes or comments for additional context.
+Task Completion Progress:
+
+Visual indicators for task progress (percentage complete).
+Export Tasks (New):
+
+Export tasks functionality using a REST API endpoint.
+JavaScript frontend integration for seamless exporting to Excel or PDF formats.
+Installation
+Prerequisites
+Python 3.x
+Django 5.x
