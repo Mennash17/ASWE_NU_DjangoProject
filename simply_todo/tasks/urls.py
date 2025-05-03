@@ -3,6 +3,7 @@ from . import views
 from django.contrib.auth import views as auth_views
 from .views import TaskListCreateAPIView
 from .views import export_tasks_excel_api
+from .views import custom_login_view
 
 urlpatterns = [
     path('', views.task_list, name='task_list'),
@@ -12,7 +13,8 @@ urlpatterns = [
     path('register/', views.register, name='register'),
     
     # Use Django's built-in LoginView for login
-    path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
+    # path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
+    path('login/', custom_login_view, name='login'),
     
     # Logout will redirect to the login page
     path('logout/', auth_views.LogoutView.as_view(next_page='login'), name='logout'),

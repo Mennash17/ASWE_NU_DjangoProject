@@ -144,7 +144,15 @@
     <div class="auth-box">
       <h2>Create Your Account 🚀</h2>
       <form method="post">
-        {% csrf_token %} {{ form.as_p }}
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        {% for field in form %}
+          <div>
+            {{ field.label_tag }}
+            {{ field }}
+            <div style="color: red;">{{ field.errors }}</div>
+          </div>
+        {% endfor %}
         <button type="submit" class="btn">Register</button>
       </form>
       <p>Already have an account? <a href="{% url 'login' %}">Login here</a></p>
