@@ -26,7 +26,7 @@ def step_impl(context):
 
 @when("I enter valid user details and submit")
 def step_impl(context):
-    username = "newuser"
+    username = "TestUser2"
     password = "StrongPass123"
     context.browser.find_element(By.NAME, "username").send_keys(username)
     context.browser.find_element(By.NAME, "password1").send_keys(password)
