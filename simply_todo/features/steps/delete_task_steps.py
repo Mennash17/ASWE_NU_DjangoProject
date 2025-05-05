@@ -6,7 +6,7 @@ from selenium.webdriver.common.by import By
 @given('I have a task titled "{task}"')
 def step_impl(context, task):
     # Precondition: Add task for deletion
-    context.browser.get('http://127.0.0.1:8000/tasks/add')
+    context.browser.get('http://127.0.0.1:8000/tasks')
     context.browser.find_element(By.NAME, "title").send_keys(task)
     context.browser.find_element(By.ID, "submit").click()
 

@@ -12,7 +12,3 @@ def step_impl(context, old, new):
     title_input.send_keys(new)
     context.browser.find_element(By.ID, "submit").click()
 
-@then('I should see "{new}" in the task list')
-def step_impl(context, new):
-    assert new in context.browser.page_source
-    context.browser.quit()

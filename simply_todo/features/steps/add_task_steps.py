@@ -5,7 +5,7 @@ from selenium.webdriver.common.by import By
 @given('I am on the "Add Task" page')
 def step_impl(context):
     context.browser = webdriver.Chrome()
-    context.browser.get('http://127.0.0.1:8000/tasks/add')
+    context.browser.get('http://127.0.0.1:8000/tasks')
 
 @when('I fill in "Title" with "{title}"')
 def step_impl(context, title):

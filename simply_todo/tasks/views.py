@@ -31,6 +31,12 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect
 
+from rest_framework.views import APIView
+from rest_framework.authtoken.models import Token
+from django.contrib.auth import authenticate
+from rest_framework.response import Response
+from rest_framework import status
+
 def custom_login_view(request):
     if request.method == 'POST':
         form = AuthenticationForm(data=request.POST)
@@ -42,7 +48,7 @@ def custom_login_view(request):
             if next_url:
                 return redirect(next_url)
             else:
-                return redirect('task_list')  # تأكدي إن ده موجود في urls.py
+                return redirect('task_list')
     else:
         form = AuthenticationForm()
 
