@@ -1,0 +1,88 @@
+2025-05-05 19:13:43 [INFO] 
+--- SCENARIO: Navigate to registration page ---
+2025-05-05 19:13:43 [INFO] STEP: I open the application
+2025-05-05 19:13:45 [INFO] \u2705 Step PASSED
+2025-05-05 19:13:45 [INFO] STEP: I am on the login page
+2025-05-05 19:13:45 [INFO] \u2705 Step PASSED
+2025-05-05 19:13:45 [INFO] Scenario PASSED: Navigate to registration page
+2025-05-05 19:13:45 [INFO] 
+--- SCENARIO: Successful registration with valid details ---
+2025-05-05 19:13:45 [INFO] STEP: I open the application
+2025-05-05 19:13:46 [INFO] \u2705 Step PASSED
+2025-05-05 19:13:46 [INFO] STEP: I am on the registration form
+2025-05-05 19:13:48 [INFO] \u2705 Step PASSED
+2025-05-05 19:13:48 [INFO] STEP: I fill in a unique username and matching passwords
+2025-05-05 19:13:48 [INFO] \u2705 Step PASSED
+2025-05-05 19:13:48 [INFO] STEP: I submit the registration form
+2025-05-05 19:13:51 [INFO] \u2705 Step PASSED
+2025-05-05 19:13:51 [INFO] STEP: I should be redirected to the login page
+2025-05-05 19:13:51 [INFO] \u2705 Step PASSED
+2025-05-05 19:13:51 [INFO] STEP: I should see a message "Registration successful"
+2025-05-05 19:13:51 [INFO] \u2705 Step PASSED
+2025-05-05 19:13:51 [INFO] Scenario PASSED: Successful registration with valid details
+2025-05-05 19:13:51 [INFO] 
+--- SCENARIO: Registration with mismatched passwords ---
+2025-05-05 19:13:51 [INFO] STEP: I open the application
+2025-05-05 19:13:53 [INFO] \u2705 Step PASSED
+2025-05-05 19:13:53 [INFO] STEP: I am on the registration form
+2025-05-05 19:13:54 [INFO] \u2705 Step PASSED
+2025-05-05 19:13:54 [INFO] STEP: I fill in a unique username and mismatched passwords
+2025-05-05 19:13:54 [INFO] \u2705 Step PASSED
+2025-05-05 19:13:54 [INFO] STEP: I submit the registration form
+2025-05-05 19:13:55 [INFO] \u2705 Step PASSED
+2025-05-05 19:13:55 [INFO] STEP: I should see an error message "Passwords do not match"
+2025-05-05 19:13:55 [INFO] \u2705 Step PASSED
+2025-05-05 19:13:55 [INFO] Scenario PASSED: Registration with mismatched passwords
+2025-05-05 19:13:55 [INFO] 
+--- SCENARIO: Registration with an existing username ---
+2025-05-05 19:13:55 [INFO] STEP: I open the application
+2025-05-05 19:14:03 [INFO] \u2705 Step PASSED
+2025-05-05 19:14:03 [INFO] STEP: a user "menna" already exists
+2025-05-05 19:14:03 [INFO] \u2705 Step PASSED
+2025-05-05 19:14:03 [INFO] STEP: I am on the registration form
+2025-05-05 19:14:04 [INFO] \u2705 Step PASSED
+2025-05-05 19:14:04 [INFO] STEP: I fill in the username "menna" with valid passwords
+2025-05-05 19:14:04 [INFO] \u2705 Step PASSED
+2025-05-05 19:14:04 [INFO] STEP: I submit the registration form
+2025-05-05 19:14:05 [INFO] \u2705 Step PASSED
+2025-05-05 19:14:05 [INFO] STEP: I should see an error message "Username already taken"
+2025-05-05 19:14:05 [INFO] \u2705 Step PASSED
+2025-05-05 19:14:05 [INFO] Scenario PASSED: Registration with an existing username
+2025-05-05 19:14:05 [INFO] 
+--- SCENARIO: Successful login ---
+2025-05-05 19:14:05 [INFO] STEP: I open the application
+2025-05-05 19:14:07 [INFO] \u2705 Step PASSED
+2025-05-05 19:14:07 [INFO] STEP: a user "testuser" with password "testpass" exists
+2025-05-05 19:14:09 [INFO] \u2705 Step PASSED
+2025-05-05 19:14:09 [INFO] STEP: I am on the login page
+2025-05-05 19:14:10 [INFO] \u2705 Step PASSED
+2025-05-05 19:14:10 [INFO] STEP: I enter "testuser" and "testpass"
+2025-05-05 19:14:10 [INFO] \u2705 Step PASSED
+2025-05-05 19:14:10 [INFO] Scenario PASSED: Successful login
+2025-05-05 19:14:10 [INFO] 
+--- SCENARIO: Failed login with invalid credentials ---
+2025-05-05 19:14:10 [INFO] STEP: I open the application
+2025-05-05 19:14:13 [INFO] \u2705 Step PASSED
+2025-05-05 19:14:13 [INFO] STEP: I am on the login page
+2025-05-05 19:14:15 [INFO] \u2705 Step PASSED
+2025-05-05 19:14:15 [INFO] STEP: I enter "wronguser" and "wrongpass"
+2025-05-05 19:14:15 [INFO] \u2705 Step PASSED
+2025-05-05 19:14:15 [INFO] Scenario PASSED: Failed login with invalid credentials
+2025-05-05 19:14:15 [INFO] 
+--- SCENARIO: Logout ---
+2025-05-05 19:14:15 [INFO] STEP: I open the application
+2025-05-05 19:14:16 [INFO] \u2705 Step PASSED
+2025-05-05 19:14:16 [INFO] STEP: I am logged in as "testuser"
+2025-05-05 19:14:21 [INFO] \u2705 Step PASSED
+2025-05-05 19:14:21 [INFO] STEP: I click the "Logout" button
+2025-05-05 19:14:23 [INFO] \u2705 Step PASSED
+2025-05-05 19:14:23 [INFO] STEP: I should be redirected to the login page
+2025-05-05 19:14:23 [INFO] \u2705 Step PASSED
+2025-05-05 19:14:23 [INFO] STEP: I should see a message "You have been logged out"
+2025-05-05 19:14:23 [ERROR] \u274c Step FAILED: I should see a message "You have been logged out"
+2025-05-05 19:14:23 [ERROR]    Error: 
+2025-05-05 19:14:23 [ERROR]    URL: http://127.0.0.1:8000/tasks/login/
+2025-05-05 19:14:23 [ERROR] Scenario FAILED: Logout
+2025-05-05 19:14:23 [INFO] 
+===== Test Run Completed =====
+

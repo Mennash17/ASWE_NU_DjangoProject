@@ -1,0 +1,72 @@
+2025-05-05 19:25:50 [INFO] ===== Test Session Started =====
+2025-05-05 19:25:50 [INFO] 
+--- SCENARIO: Navigate to registration page ---
+2025-05-05 19:25:52 [INFO] STEP: I open the application
+2025-05-05 19:25:53 [INFO] STEP: I am on the login page
+2025-05-05 19:25:54 [INFO] \u2705 Scenario PASSED: Navigate to registration page
+2025-05-05 19:25:59 [INFO] 
+--- SCENARIO: Successful registration with valid details ---
+2025-05-05 19:26:00 [INFO] STEP: I open the application
+2025-05-05 19:26:02 [INFO] STEP: I am on the registration form
+2025-05-05 19:26:02 [INFO] STEP: I fill in a unique username and matching passwords
+2025-05-05 19:26:03 [INFO] STEP: I submit the registration form
+2025-05-05 19:26:04 [INFO] STEP: I should be redirected to the login page
+2025-05-05 19:26:04 [ERROR] \u274c Step FAILED: I should be redirected to the login page
+2025-05-05 19:26:04 [ERROR]    Error: 
+2025-05-05 19:26:04 [ERROR]    Current URL: http://127.0.0.1:8000/tasks/register/
+2025-05-05 19:26:04 [ERROR] \u274c Scenario FAILED: Successful registration with valid details
+2025-05-05 19:26:07 [INFO] 
+--- SCENARIO: Registration with mismatched passwords ---
+2025-05-05 19:26:08 [INFO] STEP: I open the application
+2025-05-05 19:26:10 [INFO] STEP: I am on the registration form
+2025-05-05 19:26:11 [INFO] STEP: I fill in a unique username and mismatched passwords
+2025-05-05 19:26:11 [INFO] STEP: I submit the registration form
+2025-05-05 19:26:12 [INFO] STEP: I should see an error message "Passwords do not match"
+2025-05-05 19:26:12 [INFO] \u2705 Scenario PASSED: Registration with mismatched passwords
+2025-05-05 19:26:16 [INFO] 
+--- SCENARIO: Registration with an existing username ---
+2025-05-05 19:26:17 [INFO] STEP: I open the application
+2025-05-05 19:26:18 [INFO] STEP: a user "menna" already exists
+2025-05-05 19:26:24 [INFO] STEP: I am on the registration form
+2025-05-05 19:26:25 [INFO] STEP: I fill in the username "menna" with valid passwords
+2025-05-05 19:26:25 [INFO] STEP: I submit the registration form
+2025-05-05 19:26:26 [INFO] STEP: I should see an error message "Username already taken"
+2025-05-05 19:26:26 [INFO] \u2705 Scenario PASSED: Registration with an existing username
+2025-05-05 19:26:30 [INFO] 
+--- SCENARIO: Successful login ---
+2025-05-05 19:26:31 [INFO] STEP: I open the application
+2025-05-05 19:26:32 [INFO] STEP: a user "testuser" with password "testpass" exists
+2025-05-05 19:26:33 [INFO] STEP: I am on the login page
+2025-05-05 19:26:34 [INFO] STEP: I enter "testuser" and "testpass"
+2025-05-05 19:26:34 [INFO] \u2705 Scenario PASSED: Successful login
+2025-05-05 19:26:37 [INFO] 
+--- SCENARIO: Failed login with invalid credentials ---
+2025-05-05 19:26:39 [INFO] STEP: I open the application
+2025-05-05 19:26:40 [INFO] STEP: I am on the login page
+2025-05-05 19:26:41 [INFO] STEP: I enter "wronguser" and "wrongpass"
+2025-05-05 19:26:41 [INFO] \u2705 Scenario PASSED: Failed login with invalid credentials
+2025-05-05 19:26:44 [INFO] 
+--- SCENARIO: Logout ---
+2025-05-05 19:26:46 [INFO] STEP: I open the application
+2025-05-05 19:26:51 [INFO] \u2705 Scenario PASSED: Logout
+2025-05-05 19:26:54 [INFO] 
+--- SCENARIO: Add a new task ---
+2025-05-05 19:26:56 [INFO] STEP: a user "taskuser" with password "taskpass" exists
+2025-05-05 19:26:57 [INFO] STEP: I am logged in as "taskuser"
+2025-05-05 19:27:01 [INFO] \u2705 Scenario PASSED: Add a new task
+2025-05-05 19:27:04 [INFO] 
+--- SCENARIO: Update an existing task ---
+2025-05-05 19:27:05 [INFO] STEP: a user "taskuser" with password "taskpass" exists
+2025-05-05 19:27:06 [INFO] STEP: I am logged in as "taskuser"
+2025-05-05 19:27:08 [INFO] STEP: I am on the task dashboard
+2025-05-05 19:27:08 [ERROR] \u274c Step FAILED: I am on the task dashboard
+2025-05-05 19:27:08 [ERROR]    Error: 
+2025-05-05 19:27:08 [ERROR]    Current URL: http://127.0.0.1:8000/tasks/login/
+2025-05-05 19:27:08 [ERROR] \u274c Scenario FAILED: Update an existing task
+2025-05-05 19:27:11 [INFO] 
+--- SCENARIO: Delete a task ---
+2025-05-05 19:27:12 [INFO] STEP: a user "taskuser" with password "taskpass" exists
+2025-05-05 19:27:13 [INFO] STEP: I am logged in as "taskuser"
+2025-05-05 19:27:14 [INFO] \u2705 Scenario PASSED: Delete a task
+2025-05-05 19:27:17 [INFO] ===== Test Session Completed =====
+
